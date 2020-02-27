@@ -12,6 +12,8 @@ const { jwtSecret } = require("../config/secrets.js");
 router.post("/register", (req, res) => {
   let user = req.body;
 
+  user.department = req.body.department.toLowerCase();
+
   const hash = bcrypt.hashSync(user.password, 8);
 
   user.password = hash;
@@ -42,7 +44,7 @@ router.post("/login", (req, res) => {
           token
         });
       } else {
-        res.status(401).json({ error: "Invalid crednetials" });
+        res.status(401).json({ error: "Invalid credentials" });
       }
     })
     .catch(error => {
@@ -53,7 +55,8 @@ router.post("/login", (req, res) => {
 
 function generateToken(user) {
   const payload = {
-    userId: user.id
+    userId: user.id,
+    department: user.department
   };
 
   const options = {

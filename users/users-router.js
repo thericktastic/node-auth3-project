@@ -5,7 +5,12 @@ const Users = require("./users-model.js");
 
 // set up basic GET endpoint to retrieve all users
 router.get("/", (req, res) => {
-  Users.find()
+  const department = req.decodedToken.department.toLowerCase();
+
+  console.log("This is department: ", department);
+
+  Users.findBy({ department })
+//   Users.find()
     .then(users => {
       console.log("This is users in router.get(all users): ", users);
       res.json(users);

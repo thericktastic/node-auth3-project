@@ -16,6 +16,10 @@ function add(user) {
     });
 }
 
+function getDeptUsers(department) {
+  return db("users").join("")
+}
+
 function find() {
   return db("users").select("id", "username", "password", "department");
 }
